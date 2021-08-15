@@ -3,6 +3,7 @@ from selenium.webdriver import FirefoxOptions
 from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
+from flight import Flight
 
 opts = FirefoxOptions()
 opts.add_argument("--headless")
@@ -19,10 +20,8 @@ try:
     for row in rows:
         cols = row.find_elements(By.TAG_NAME, "td")
         if len(cols) > 0:
-            flight = []
-            for col in cols:
-                flight.append(col.text)
-            flights.append(flight)
+            new_flight = Flight(cols[0].text, cols[1].text, cols[2].text, cols[3].text, cols[4].text, cols[6].text)
+            flights.append(new_flight)
 except Exception as e:
     print(e)
     print("Unable to get results")
